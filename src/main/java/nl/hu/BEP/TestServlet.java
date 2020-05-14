@@ -15,22 +15,9 @@ public class TestServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String nummer = req.getParameter("nummer");
-        String logs = req.getParameter("logs");
 
         PrintWriter pw = new PrintWriter(resp.getWriter());
-        if(nummer!=null){
-            Factuur factuur = Factuur.deFactuur;
-
-            if ("true".equals(logs)){
-                pw.println(factuur.getFactuurNummer());
-
-            }else{
-                pw.println("Nummer: " + factuur.getFactuurDatum());
-
-            }
-        }else{
-            pw.println(Factuur.deFactuur);
-        }
+        Factuur factuur = Factuur.deFactuur;
+        pw.println();
     }
 }
