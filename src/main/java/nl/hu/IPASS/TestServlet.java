@@ -1,4 +1,4 @@
-package nl.hu.BEP;
+package nl.hu.IPASS;
 
 import nl.hu.IPASS.model.Factuur;
 
@@ -18,6 +18,6 @@ public class TestServlet extends HttpServlet {
 
         PrintWriter pw = new PrintWriter(resp.getWriter());
         Factuur factuur = Factuur.deFactuur;
-        pw.println();
+        pw.println("hallo");
     }
 }

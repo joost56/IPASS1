@@ -1,4 +1,4 @@
-package nl.hu.BEP;
+package nl.hu.IPASS;
 
 /**
  * Hello world!
