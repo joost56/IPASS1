@@ -1,5 +1,5 @@
 aside {
-    width: 250px;
+    width: 270px;
     float: left;
     padding: 0px 10px 0px 7px;
     background-color: white;
@@ -26,15 +26,65 @@ textarea{
     margin-left: 300px;
     margin-top: -40px;
 }
-.button2 {
-    padding: 10px 24px;
-    margin: 100px 175px 10px 590px;
+section{
+    margin-left: 400px;
+    margin-top: 100px;
 }
-.button3 {
-    padding: 10px 24px;
-    margin: -101px 200px 10px 600px;
+
+#uitloggen{
+    background-color: gray;
+    border: none;
+    color: green;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 7px;
+    cursor: pointer;
 }
-.button4 {
-    padding: 10px 24px;
-    margin: -30px 175px 10px 450px;
+#wijzig\ klant\ gegevens{
+    background-color: mediumblue;
+    border: none;
+    color: white;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 7px;
+    cursor: pointer;
+}
+#bekijk\ alle\ uren{
+    background-color: mediumblue;
+    border: none;
+    color: white;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 7px;
+    cursor: pointer;
+
+}
+#genereer\ factuur{
+    background-color: mediumblue;
+    border: none;
+    color: white;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+#opslaan{
+    background-color: mediumblue;
+    border: none;
+    color: white;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 7px;
+    cursor: pointer;
 }

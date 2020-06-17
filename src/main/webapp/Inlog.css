@@ -1,0 +1,14 @@
+
+section{
+    border-style: solid;
+    position: absolute;
+    margin-left: 500px;
+    margin-top: 150px;
+}
+#password{
+    margin-top: 10px;
+}
+#login {
+    margin-top: 10px;
+    margin-left: 140px;
+}

@@ -2,56 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="Style.css"/>
-    <title>Factuur</title>
+    <link rel="Stylesheet" href="Inlog.css"/>
+    <title>Inlogscherm</title>
 </head>
 <body>
-<aside>
-    <h2>Menu</h2>
-    <hr/>
-    <h3>hier komen de klanten</h3>
-    <button class="button0">Uitloggen</button>
-    <button class="button1">Wijzig gegevens klant</button>
-</aside>
+<section>
+    <h2>Inlogscherm</h2>
+    <form id="loginform" action="Hoofdscherm.html" >
+        <input type="text" placeholder="emailadres" name="username" id="username"/><br>
+        <input type="password" placeholder="wachtwoord" name="password" id="password"/><br>
+        <input type="submit" value="login" id="login" />
+    </form>
+</section>
 
-<form action="/action_page.php" id="usrform">
-    Uren: <input type="number" name="usrname">
-</form>
-<br>
-<textarea rows="7" cols="50" name="comment" form="usrform">
-</textarea>
-
-<button class="button button2">opslaan</button>
-<button class="button button3">Genereer factuur</button>
-<button class="button button4">Bekijk alle uren</button>
+</body>
+</html>
 
 
 
 
 
 <script type="text/javascript">
-    document.querySelector("#postNoJackson").addEventListener("click", function() {
-        var formData = new FormData(document.querySelector("#POSTcustomerForm"));
+    function login(event) {
+        var formData = new FormData(document.querySelector("#loginform"));
         var encData = new URLSearchParams(formData.entries());
 
-        fetch("rest/factuur/nojackson", {method: 'POST', body: encData})
-            .then(response => response.json())
-            .then(function (myJson) {
-                console.log(myJson)
-        })
-    })
-    document.querySelector("#postJackson").addEventListener("click", function () {
-        var formData = new FormData(document.querySelector("#POSTcustomersForm"));
-
-
-        fetch("rest/customers/jackson", {method: 'POST', body: encData})
-            .then(response => response.json())
-            .then(function (myJson) {
-                console.log(myJson);
-
-            });
-
-    })
+        fetch("rest/authentication", { method: 'POST', body: encData })
+            .then(function (response) {
+                if (response.ok) return response.json();
+                else throw "wrong username/password";
+            })
+            .then(myJson => window.sessionStorage.setItem("myJWT", myJson.JWT))
+            .catch(error => console.log(error));
+    }
+    document.querySelector("#login").addEventListener("click", login);
 </script>
 
 </body>

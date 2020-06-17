@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="Style.css"/>
+    <title>Factuur</title>
+</head>
+<body>
+<aside>
+    <h2>Menu</h2>
+    <hr/>
+    <h3>hier komen de klanten</h3>
+    <article>
+        <input type="submit" value="wijzig klantgegevens" id="wijzig klant gegevens" />&nbsp;
+        <button type="button" id="uitloggen"> <a href="index.html">Log uit</a></button>&nbsp;
+
+    </article>
+</aside>
+
+<form action="/action_page.php" id="usrform">
+    Uren: <input type="number" name="usrname">
+</form>
+<br>
+<textarea rows="7" cols="50" name="comment" form="usrform">
+</textarea>
+<section>
+    <a href="rest/uren">Bekijk alle uren</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="submit" value="genereer factuur" id="genereer factuur" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="submit" value="opslaan" id="opslaan" />
+</section>
+
+
+<script type="text/javascript">
+    document.querySelector("#postNoJackson").addEventListener("click", function() {
+        var formData = new FormData(document.querySelector("#GETUrenForm"));
+        var encData = new URLSearchParams(formData.entries());
+        var fetchoptions = {
+            method: 'GET',
+            headers : {
+                'Authorization' : 'Bearer ' + window.sessionStorage.getItem("myJWT")
+            },
+            body: encData
+        }
+
+        fetch("rest/uren/nojackson", fetchoptions)
+            .then(response => response.json())
+            .then(function (myJson) {
+                console.log(myJson)
+            });
+    });
+</script>
