@@ -14,6 +14,7 @@ public class MyServletContextListener implements ServletContextListener {
         System.out.println("Initialiseer hiet objecten of laad alvast data");
         Gebruiker.createGebruiker("john", "buiting", "12", "dit en dat gedaan");
 //                , "buiting", "email", "12", "dit gedaan", "12-5-2020");
+        new MyUser("John", "Buiting");
 
     }
 

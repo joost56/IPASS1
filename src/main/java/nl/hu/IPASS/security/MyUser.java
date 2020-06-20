@@ -26,6 +26,7 @@ public class MyUser implements Principal {
         return gebruikersnaam;
     }
 
+
     public String getRol() {
         return rol;
     }

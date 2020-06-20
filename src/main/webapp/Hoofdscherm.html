@@ -25,12 +25,49 @@
 </textarea>
 <section>
     <a href="rest/uren">Bekijk alle uren</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <input type="submit" value="genereer factuur" id="genereer factuur" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button onclick="Export2Doc('exportContent');">Export as .doc</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <div id="exportContent">
+        <h1>een voorbeeld</h1>
+        <p> dit is gewoon puur als voorbeeld bedoeld want als dit lukt dan ben ik geniaal.</p>
+    </div>
     <input type="submit" value="opslaan" id="opslaan" />
 </section>
 
 
+
 <script type="text/javascript">
+    //voor de word file
+    function Export2Doc(element, filename = ''){
+        var preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word'xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
+        var postHtml = "</body></html>";
+        var html = preHtml+document.getElementById(element).innerHTML+postHtml;
+
+        var blob = new Blob(['\ufeff', html], {
+            type: 'appliaction/msword'
+        });
+
+        var url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
+
+        filename = filename?filename+'.doc':'document.doc';
+
+        var downloadLink = document.createElement("a");
+
+        document.body.appendChild(downloadLink);
+
+        if (navigator.msSaveOrOpenBlob ){
+            navigator.msSaveOrOpenBlob(blob, filename);
+        }else{
+            downloadLink.href = url;
+
+            downloadLink.download = filename;
+
+            downloadLink.click();
+        }
+
+        document.body.removeChild(downloadLink);
+    }
+
+    //showt alle uren
     document.querySelector("#postNoJackson").addEventListener("click", function() {
         var formData = new FormData(document.querySelector("#GETUrenForm"));
         var encData = new URLSearchParams(formData.entries());
