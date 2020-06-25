@@ -1,9 +1,10 @@
 aside {
     width: 270px;
     float: left;
-    padding: 0px 10px 0px 7px;
     background-color: white;
     border-style: solid;
+    padding-right: 10px;
+    padding-left: 7px;
 }
 button {
     padding-bottom: 10px;
@@ -88,4 +89,11 @@ section{
     display: inline-block;
     border-radius: 7px;
     cursor: pointer;
+}
+p.hide-me{
+    display: none;
+}
+
+table{
+    border-style: solid;
 }
