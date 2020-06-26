@@ -9,6 +9,7 @@ import javax.json.JsonObjectBuilder;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @Path("/uren")
@@ -23,12 +24,17 @@ public class UrenResource {
     @POST
     @Path("nojackson")
     @Produces(MediaType.APPLICATION_JSON)
-    public String createUren(@FormParam("uren") int ur, @FormParam("omschrijving") String om){
-        Uren nieuweUren = Uren.createUren(ur, om);
+    public String createUren(@FormParam("uren") int ur, @FormParam("omschrijving") String om, @FormParam("date") String da ){
+        Uren nieuweUren = Uren.createUren(ur, om, da);
         JsonObjectBuilder job = Json.createObjectBuilder();
-        if (nieuweUren != null) {
+        if (om != null && ur != 0) {
             job.add("uren", nieuweUren.getGewerkteUren());
             job.add("omschrijving", nieuweUren.getUrenOmschrijving());
+            job.add("datum", nieuweUren.getDatum());
+        }else if(ur == 0) {
+            job.add("error", "U heeft 0 uur gewerkt?");
+        }else if (ur != 0 && om == null){
+            job.add("error", "Wat heeft u gedaan in dit uur/deze uren?");
         }else{
             job.add("error", "Uren zijn niet toegevoegd");
         }

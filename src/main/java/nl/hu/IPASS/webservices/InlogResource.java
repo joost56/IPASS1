@@ -13,7 +13,7 @@ public class InlogResource {
     @Produces(MediaType.APPLICATION_JSON)
     public void beveiliging(@FormParam("login") String email, String wachtwoord) {
         if (wachtwoord != null && email != null) {
-
+            
         } else {
 
         }
