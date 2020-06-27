@@ -28,9 +28,9 @@ public class UrenResource {
         Uren nieuweUren = Uren.createUren(ur, om, da);
         JsonObjectBuilder job = Json.createObjectBuilder();
         if (om != null && ur != 0) {
+            job.add("datum", nieuweUren.getDatum());
             job.add("uren", nieuweUren.getGewerkteUren());
             job.add("omschrijving", nieuweUren.getUrenOmschrijving());
-            job.add("datum", nieuweUren.getDatum());
         }else if(ur == 0) {
             job.add("error", "U heeft 0 uur gewerkt?");
         }else if (ur != 0 && om == null){
