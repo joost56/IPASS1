@@ -5,10 +5,8 @@ import java.util.*;
 public class Gebruiker {
     private String voornaam;
     private String achternaam;
-//    private String email;
-    private int gewerkteUren;
-    private String urenOmschrijving;
-//    private String datum;
+    private String email;
+    private String datum;
     private static List<Gebruiker> alleGebruikers = new ArrayList<>();
     private static List<String> alleUren = new ArrayList<>();
 
@@ -64,22 +62,5 @@ public class Gebruiker {
 //        return urenOmschrijving;
 //    }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Gebruiker gebruiker = (Gebruiker) o;
-        return voornaam.equals(gebruiker.voornaam)&&
-        gewerkteUren == gebruiker.gewerkteUren &&
-                achternaam.equals(gebruiker.achternaam)&&
-//                email.equals(gebruiker.email) &&
-                urenOmschrijving.equals(gebruiker.urenOmschrijving);
-//                datum.equals(gebruiker.datum);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(voornaam, achternaam, gewerkteUren, urenOmschrijving);
-    }
 }
 

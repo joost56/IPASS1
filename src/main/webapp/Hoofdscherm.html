@@ -20,44 +20,41 @@
 <form id="POSTurenform">
 <!--        action="/action_page.php"-->
     <label for="uren">Gewerkte uren:<input type="number" id="uren" name="uren"/></label>
-    <label for="omschrijving">Uren omschrijving:<input type="text" id="omschrijving" name="omschrijving"/></label>
-    <p id="date"></p>
-    <input type="button" id="postNoJackson" value="opslaan">
+    <label for="omschrijving">Uren omschrijving:<input type="text" id="omschrijving" name="omschrijving"/></label><br><br>
+<!--    <p id="date"></p>-->
+<!--    <p id="id"></p>-->
+    <input type="button" id="postNoJackson" value="opslaan"><br><br><br><br>
+<!--    <input type="button" id="postJackson" value="opslaan!!!!!">-->
 <!--<textarea rows="7" cols="50" name="omschrijving" form="POSTurenform">-->
 <!--</textarea>-->
 </form>
+
+<form id="PUTurenform">
+    <label for="putid">id:<input type="number" id="putid" name="id"></label>
+    <label for="puturen">uren:<input type="number" id="puturen" name="uren"/></label>
+    <label for="putomschrijving">omschrijving:<input type="text" id="putomschrijving" name="omschrijving"/></label><br><br>
+    <input type="button" id="put" value="wijzig">
+
+</form>
 <section>
     <ul>
-        <li><a href="/rest/uren">Bekijk alle uren</a></li>
+        <li><a href="/rest/uren">Bekijk alle uren </a></li>
     </ul>
 
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <button onclick="Export2Doc('exportContent');">Genereer als factuur</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button id="genereer factuur" onclick="Export2Doc('exportContent');">Genereer als factuur</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <div id="exportContent">
-        <h1>een voorbeeld</h1>
-        <p class="hide-me"> dit is gewoon puur als voorbeeld bedoeld want als dit lukt dan ben ik geniaal.
-
-
-        <h2>Declaratie</h2>
-
-            <table>
-                <tr>
-                    <th>Datum: 14 april 2020</th>
-                    <th>Factuurnummer: 2020 – 1.08</th>
-                    <th>Bedrag</th>
-                </tr>
-                <tr>
-                    <th>Wilt u op uw betalingsopdracht bovenstaand factuurnummer vermelden.</th>
-                    <th>bedrag</th>
-                </tr>
-            </table>
+        <p class="hide-me">
         </p>
+<!--        <p id="pakketje">-->
     </div>
 </section>
 
 
 
 <script type="text/javascript">
+
+
     document.querySelector("#postNoJackson").addEventListener("click", function() {
         var formData = new FormData(document.querySelector("#POSTurenform"));
         var encData = new URLSearchParams(formData.entries());
@@ -69,6 +66,37 @@
             });
     });
 
+    document.querySelector("#put").addEventListener("click", function () {
+        var id = document.querySelector("#putid").value;
+        var formData = new FormData(document.querySelector("#PUTurenform"));
+        var encData = new URLSearchParams(formData.entries());
+
+        fetch("/rest/uur/"+ id, { method: 'PUT', body:encData })
+            .then(response => response.json())
+            .then(function (myJson) {
+                console.log(myJson);
+            });
+
+    });
+
+    // document.querySelector("#postJackson").addEventListener("click", function() {
+    //     var formData = new FormData(document.querySelector("#POSTurenform"));
+    //     var encData = new URLSearchParams(formData.entries());
+    //
+    //     fetch("rest/uren/jackson", {method: 'POST', body: encData})
+    //         .then(response => response.json())
+    //         .then(function (myJson) {
+    //             console.log(myJson);
+    //         });
+    // });
+
+    // function f() {
+    //     let omschrijvingJson = myJson.omschrijving;
+    //     let urenJson = myJson.uren;
+    //     console.log(omschrijvingJson);
+    //     console.log(urenJson);
+    // }
+    // document.getElementById("pakketje").innerHTML=f();
 
     //voor de word file
     function Export2Doc(element, filename = ''){

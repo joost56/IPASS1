@@ -30,9 +30,14 @@
 
         fetch("rest/authentication", { method: 'POST', body: encData })
             .then(function (response) {
-                if (response.ok) return response.json();
-                else throw "wrong username/password";
+                if (response.ok) {
+                    // return window.location.href = "/Hoofdscherm.html";
+                    return response.json();
+                }else{
+                    throw "wrong username/password";
+                }
             })
+
             .then(myJson => window.sessionStorage.setItem("myJWT", myJson.JWT))
             .catch(error => console.log(error));
     }

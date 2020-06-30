@@ -1,30 +1,72 @@
 package nl.hu.IPASS.model;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-public class Uren{
-    private int gewerkteUren;
+public class Uren implements Serializable {
+    private String gewerkteUren;
     private String urenOmschrijving;
     private String datum;
+    private int id;
+    private static int numUren = 0;
     private static List<Uren> alleUren = new ArrayList<>();
+    private static HashMap<String, String> Hashalleuren = new HashMap<String, String>();
 
-    private Uren(int gewerkteUren, String urenOmschrijving, String datum) {
+    private Uren(String gewerkteUren, String urenOmschrijving, String datum){
         this.gewerkteUren = gewerkteUren;
         this.urenOmschrijving = urenOmschrijving;
         this.datum = datum;
-        alleUren.add(this);
+        id = ++numUren;
     }
 
-    public static Uren createUren(int gewerkteUren, String urenOmschrijving, String datum){
-        return new Uren(gewerkteUren, urenOmschrijving, datum);
+
+    public Uren(int id, String gewerkteUren, String urenOmschrijving, String datum) {
+        this.id = id;
+        this.gewerkteUren = gewerkteUren;
+        this.urenOmschrijving = urenOmschrijving;
+        this.datum = datum;
+    }
+
+    public static Uren getUur(int id){
+        return alleUren.stream().filter(e->e.id==id).findFirst().orElse(null);
+    }
+
+    public static Uren createUren(String gewerkteUren, String urenOmschrijving, String datum){
+        Uren newUur = new Uren(gewerkteUren, urenOmschrijving, datum);
+        alleUren.add(newUur);
+        return newUur;
+    }
+
+    public static Uren updateUrenGewerkteUren(int id, String gewerkteUren, String urenOmschrijving, String datum){
+        Uren found = Uren.getUur(id);
+        if (found!=null){
+            found.setGewerkteUren(gewerkteUren);
+            found.setUrenOmschrijving(urenOmschrijving != null ? urenOmschrijving : "");
+        }
+        return found;
+    }
+    public static Uren updateUren(Uren newUren){
+        return alleUren.set(alleUren.indexOf(Uren.getUur(newUren.getId())), newUren);
+    }
+
+    public static boolean removeUur(int id){
+        return alleUren.remove(alleUren.indexOf(Uren.getUur(id)))!=null;
+    }
+
+    public static HashMap<String, String> getHashalleuren() {
+        return Hashalleuren;
     }
 
     public static List<Uren> getAlleUren() {
-        return Collections.unmodifiableList(alleUren);
+        return alleUren;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getDatum(){
@@ -41,13 +83,28 @@ public class Uren{
         return day+ "-" + month + "-" + year;
     }
 
-    public int getGewerkteUren() {
+    public String getGewerkteUren() {
         return gewerkteUren;
     }
 
     public String getUrenOmschrijving() {
         return urenOmschrijving;
     }
+
+    public void setGewerkteUren(String gewerkteUren) {
+        this.gewerkteUren = gewerkteUren;
+    }
+
+    public static void setUren(int id, String gewerkteUren, String urenOmschrijving, String datum){
+        new Uren(id ,gewerkteUren, urenOmschrijving, datum);
+    }
+
+    public void setUrenOmschrijving(String urenOmschrijving) {
+        this.urenOmschrijving = urenOmschrijving;
+    }
+
+
+
 
     @Override
     public boolean equals(Object o) {

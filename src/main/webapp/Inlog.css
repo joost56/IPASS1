@@ -9,6 +9,8 @@ section{
     margin-top: 10px;
 }
 #login {
+    padding-top: 2px;
+    padding-left: 10px;
+    margin-left: 130px;
     margin-top: 10px;
-    margin-left: 140px;
 }
