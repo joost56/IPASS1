@@ -18,31 +18,33 @@
 </aside>
 
 <form id="POSTurenform">
-<!--        action="/action_page.php"-->
     <label for="uren">Gewerkte uren:<input type="number" id="uren" name="uren"/></label>
-    <label for="omschrijving">Uren omschrijving:<input type="text" id="omschrijving" name="omschrijving"/></label><br><br>
+    <label for="omschrijving">Uren omschrijving:<input type="text" id="omschrijving" name="omschrijving"/></label>
 <!--    <p id="date"></p>-->
 <!--    <p id="id"></p>-->
-    <input type="button" id="postNoJackson" value="opslaan"><br><br><br><br>
+    <input type="button" id="postNoJackson" value="opslaan"><br><br>
 <!--    <input type="button" id="postJackson" value="opslaan!!!!!">-->
-<!--<textarea rows="7" cols="50" name="omschrijving" form="POSTurenform">-->
-<!--</textarea>-->
 </form>
 
 <form id="PUTurenform">
-    <label for="putid">id:<input type="number" id="putid" name="id"></label>
+    <label for="putid">id:<input type="text" id="putid" name="id"></label>
     <label for="puturen">uren:<input type="number" id="puturen" name="uren"/></label>
     <label for="putomschrijving">omschrijving:<input type="text" id="putomschrijving" name="omschrijving"/></label><br><br>
-    <input type="button" id="put" value="wijzig">
+    <input type="button" id="put" value="Wijzig!">
 
 </form>
+
+<form id="DELETEurenform">
+    <label for="deleteid">id:<input type="number" id="deleteid" name="id"></label>
+    <input type="button" id="delete" value="Delete!">
+
+</form>
+
 <section>
-    <ul>
-        <li><a href="/rest/uren">Bekijk alle uren </a></li>
-    </ul>
+    <a href="/rest/uren">Bekijk alle uren </a>
 
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <button id="genereer factuur" onclick="Export2Doc('exportContent');">Genereer als factuur</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button id="genereer factuur" onclick="Export2Doc('exportContent');">Genereer als factuur</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <div id="exportContent">
         <p class="hide-me">
         </p>
@@ -71,13 +73,26 @@
         var formData = new FormData(document.querySelector("#PUTurenform"));
         var encData = new URLSearchParams(formData.entries());
 
-        fetch("/rest/uur/"+ id, { method: 'PUT', body:encData })
+        fetch("rest/uur/"+ id, { method: 'PUT', body:encData })
             .then(response => response.json())
             .then(function (myJson) {
                 console.log(myJson);
             });
 
     });
+
+    document.querySelector("#delete").addEventListener("click", function () {
+        var id = document.querySelector("#deleteid").value;
+
+        fetch("rest/uur/" + id, {method: 'DELETE'})
+            .then(function (response) {
+                if (response.ok) console.log("Uur verwijderd")
+                else if (response.status == 404) console.log("Uur niet gevonden")
+                else console.log("Er gebeurde iets raars")
+            });
+    });
+
+
 
     // document.querySelector("#postJackson").addEventListener("click", function() {
     //     var formData = new FormData(document.querySelector("#POSTurenform"));

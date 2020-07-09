@@ -54,7 +54,8 @@ public class Uren implements Serializable {
     }
 
     public static boolean removeUur(int id){
-        return alleUren.remove(alleUren.indexOf(Uren.getUur(id)))!=null;
+        if (id>0) return alleUren.remove(alleUren.indexOf(Uren.getUur(id)))!=null;
+        return false;
     }
 
     public static HashMap<String, String> getHashalleuren() {

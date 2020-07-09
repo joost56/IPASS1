@@ -22,9 +22,9 @@ public class UurResource {
 
 
     @GET
-    @Path("{id}")
+    @Path("{uurid}")
     @Produces("application/json")
-    public Response getUren(@PathParam("id") int id){
+    public Response getUren(@PathParam("uurid") int id){
         Uren uren = Uren.getUur(id);
         if (uren == null){
             Map<String, String> messages = new HashMap<>();
@@ -33,16 +33,24 @@ public class UurResource {
             return Response.status(409).entity(messages).build();
         }
         return Response.ok(uren).build();
-
     }
 
     @PUT
-    @Path("{id}")
+    @Path("{uurid}")
     @Produces("application/json")
-    public Response updateUur(@PathParam("id") int id, @FormParam("uren") String gewerkteUren, @FormParam("omschrijving") String urenOmschrijving, @FormParam("datum") String datum){
-        Uren replaced = Uren.updateUren(new Uren(id, gewerkteUren, datum, urenOmschrijving));
+    public Response updateUur(@PathParam("uurid") int id, @FormParam("uren") String gewerkteUren, @FormParam("omschrijving") String urenOmschrijving, @FormParam("datum") String datum){
+        Uren replaced = Uren.updateUren(new Uren(id, gewerkteUren, urenOmschrijving, datum));
         if (replaced==null) return Response.status(Response.Status.EXPECTATION_FAILED).entity(new AbstractMap.SimpleEntry<>("error", "kon uur met id " + id + " niet updaten")).build();
         return Response.ok(Uren.getUur(id)).build();
-        }
     }
 
+
+    @DELETE
+    @Path("{uurid}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteUur(@PathParam("uurid") int id){
+        if (Uren.removeUur(id))return Response.ok().build();
+        return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+}

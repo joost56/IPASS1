@@ -20,7 +20,7 @@ public class MyServletContextListener implements ServletContextListener {
         System.out.println("Initialiseer hiet objecten of laad alvast data");
         Uren.createUren("12", "dit en dat gedaan", "26-6-2020");
         Uren.createUren("34", "dit gedaan", "27-6-2020");
-        new MyUser("John", "Buiting");
+//        new MyUser("John", "Buiting");
 
     }
 

@@ -14,10 +14,6 @@ h2{
 hr{
     color: black;
 }
-textarea{
-    margin-left: 300px;
-    margin-top: -40px;
-}
 section{
     margin-left: 400px;
     margin-top: 100px;
@@ -68,24 +64,38 @@ section{
     display: inline-block;
     border-radius: 7px;
     cursor: pointer;
-    margin-left: 250px;
-    margin-top: -100px;
+    margin-left: 50px;
+    margin-top: -200px;
 }
 
 #postNoJackson{
     background-color: mediumblue;
     border: none;
     color: white;
-    padding: 10px 32px;
+    padding: 9px 20px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     border-radius: 7px;
     cursor: pointer;
-    margin-left: 460px;
+    margin-left: 500px;
+    margin-top: 5px;
     }
 
 #put{
+    background-color: mediumblue;
+    border: none;
+    color: white;
+    padding: 9px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 7px;
+    cursor: pointer;
+    margin-left: 500px;
+    margin-top: -200px;
+}
+#delete{
     background-color: mediumblue;
     border: none;
     color: white;
@@ -95,8 +105,9 @@ section{
     display: inline-block;
     border-radius: 7px;
     cursor: pointer;
-    margin-left: 560px;
+    margin-left: 100px;
 }
+
 p.hide-me{
     display: none;
 }
