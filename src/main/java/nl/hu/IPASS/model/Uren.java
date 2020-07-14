@@ -1,14 +1,10 @@
 package nl.hu.IPASS.model;
 
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Uren implements Serializable {
-    private String gewerkteUren;
+    private int gewerkteUren;
     private String urenOmschrijving;
     private String datum;
     private int id;
@@ -16,7 +12,7 @@ public class Uren implements Serializable {
     private static List<Uren> alleUren = new ArrayList<>();
     private static HashMap<String, String> Hashalleuren = new HashMap<String, String>();
 
-    private Uren(String gewerkteUren, String urenOmschrijving, String datum){
+    private Uren(int gewerkteUren, String urenOmschrijving, String datum){
         this.gewerkteUren = gewerkteUren;
         this.urenOmschrijving = urenOmschrijving;
         this.datum = datum;
@@ -24,7 +20,7 @@ public class Uren implements Serializable {
     }
 
 
-    public Uren(int id, String gewerkteUren, String urenOmschrijving, String datum) {
+    public Uren(int id, int gewerkteUren, String urenOmschrijving, String datum) {
         this.id = id;
         this.gewerkteUren = gewerkteUren;
         this.urenOmschrijving = urenOmschrijving;
@@ -35,13 +31,13 @@ public class Uren implements Serializable {
         return alleUren.stream().filter(e->e.id==id).findFirst().orElse(null);
     }
 
-    public static Uren createUren(String gewerkteUren, String urenOmschrijving, String datum){
+    public static Uren createUren(int gewerkteUren, String urenOmschrijving, String datum){
         Uren newUur = new Uren(gewerkteUren, urenOmschrijving, datum);
         alleUren.add(newUur);
         return newUur;
     }
 
-    public static Uren updateUrenGewerkteUren(int id, String gewerkteUren, String urenOmschrijving, String datum){
+    public static Uren updateUrenGewerkteUren(int id, int gewerkteUren, String urenOmschrijving, String datum){
         Uren found = Uren.getUur(id);
         if (found!=null){
             found.setGewerkteUren(gewerkteUren);
@@ -52,6 +48,10 @@ public class Uren implements Serializable {
     public static Uren updateUren(Uren newUren){
         return alleUren.set(alleUren.indexOf(Uren.getUur(newUren.getId())), newUren);
     }
+
+//    public static Uren removeUur(int id) {
+//        return alleUren.remove(alleUren.indexOf(Uren.getUur(id)));
+//    }
 
     public static boolean removeUur(int id){
         if (id>0) return alleUren.remove(alleUren.indexOf(Uren.getUur(id)))!=null;
@@ -84,7 +84,7 @@ public class Uren implements Serializable {
         return day+ "-" + month + "-" + year;
     }
 
-    public String getGewerkteUren() {
+    public int getGewerkteUren() {
         return gewerkteUren;
     }
 
@@ -92,11 +92,11 @@ public class Uren implements Serializable {
         return urenOmschrijving;
     }
 
-    public void setGewerkteUren(String gewerkteUren) {
+    public void setGewerkteUren(int gewerkteUren) {
         this.gewerkteUren = gewerkteUren;
     }
 
-    public static void setUren(int id, String gewerkteUren, String urenOmschrijving, String datum){
+    public static void setUren(int id, int gewerkteUren, String urenOmschrijving, String datum){
         new Uren(id ,gewerkteUren, urenOmschrijving, datum);
     }
 

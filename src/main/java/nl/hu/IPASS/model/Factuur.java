@@ -1,6 +1,8 @@
 package nl.hu.IPASS.model;
 
-public class Factuur {
+import java.io.Serializable;
+
+public class Factuur implements Serializable {
     public static Factuur deFactuur = new Factuur(123456789, "12 november 2020 ofzo");
     private int factuurNummer;
     private String factuurDatum;

@@ -10,6 +10,8 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.crypto.MacProvider;
+import nl.hu.IPASS.model.Gebruiker;
+
 import javax.ws.rs.Path;
 
     @Path("/authentication")
@@ -30,14 +32,27 @@ import javax.ws.rs.Path;
 
         @POST
         @Produces(MediaType.APPLICATION_JSON)
-        @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-        public Response authenticateUserByPassword(@FormParam("username") String username, @FormParam("password") String password){
+        public Response authenticateUserByPassword(@FormParam("email") String email, @FormParam("password") String password) {
             try{
-                String role = MyUser.validateLogin(username, password);
-                String token = createToken(username, role);
+                if(email.trim().equals("") || password.trim().equals("")) {
+                    return Response.status(Response.Status.CONFLICT).entity(new AbstractMap.SimpleEntry<>("error", "De velden mogen niet leeg zijn!")).build();
+                }
 
-                AbstractMap.SimpleEntry<String, String> JWT = new AbstractMap.SimpleEntry<>("JWT", token);
-                return Response.ok(JWT).build();
+                if(!email.contains("@")) {
+                    return Response.status(Response.Status.CONFLICT).entity(new AbstractMap.SimpleEntry<>("error", "Het emailadres moet een @ bevatten!")).build();
+                }
+
+                Gebruiker gebruikerBijEmail = Gebruiker.getAlleGebruikers().stream().filter(gebruiker -> gebruiker.getEmail().equals(email) && gebruiker.getWachtwoord().equals(password)).findFirst().orElse(null);
+
+                if(gebruikerBijEmail != null) {
+
+                    String role = Gebruiker.validateLogin(email, password);
+                    String token = createToken(email, role);
+
+                    AbstractMap.SimpleEntry<String, String> JWT = new AbstractMap.SimpleEntry<>("JWT", token);
+                    return Response.ok(JWT).build();
+                }
+                return Response.status(Response.Status.CONFLICT).entity(new AbstractMap.SimpleEntry<>("error", "Het emailadres of wachtwoord is onjuist!")).build();
             }
             catch (JwtException | IllegalArgumentException e){
                 return Response.status(Response.Status.UNAUTHORIZED).build();

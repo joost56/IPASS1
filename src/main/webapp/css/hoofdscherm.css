@@ -68,33 +68,33 @@ section{
     margin-top: -200px;
 }
 
-#postNoJackson{
-    background-color: mediumblue;
-    border: none;
-    color: white;
-    padding: 9px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    border-radius: 7px;
-    cursor: pointer;
-    margin-left: 500px;
-    margin-top: 5px;
-    }
+/*#postNoJackson{*/
+/*    background-color: mediumblue;*/
+/*    border: none;*/
+/*    color: white;*/
+/*    padding: 9px 20px;*/
+/*    text-align: center;*/
+/*    text-decoration: none;*/
+/*    display: inline-block;*/
+/*    border-radius: 7px;*/
+/*    cursor: pointer;*/
+/*    margin-left: 500px;*/
+/*    margin-top: 5px;*/
+/*    }*/
 
-#put{
-    background-color: mediumblue;
-    border: none;
-    color: white;
-    padding: 9px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    border-radius: 7px;
-    cursor: pointer;
-    margin-left: 500px;
-    margin-top: -200px;
-}
+/*#put{*/
+/*    background-color: mediumblue;*/
+/*    border: none;*/
+/*    color: white;*/
+/*    padding: 9px 20px;*/
+/*    text-align: center;*/
+/*    text-decoration: none;*/
+/*    display: inline-block;*/
+/*    border-radius: 7px;*/
+/*    cursor: pointer;*/
+/*    margin-left: 500px;*/
+/*    margin-top: -200px;*/
+/*}*/
 #delete{
     background-color: mediumblue;
     border: none;

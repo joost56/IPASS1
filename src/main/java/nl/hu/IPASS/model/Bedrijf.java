@@ -1,6 +1,8 @@
 package nl.hu.IPASS.model;
 
-public class Bedrijf {
+import java.io.Serializable;
+
+public class Bedrijf implements Serializable {
     private String naam;
     private String adres;
     private String rekeningnummer;

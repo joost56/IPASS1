@@ -1,8 +1,6 @@
 package nl.hu.IPASS.setup;
 
-import nl.hu.IPASS.Persistance.PersistanceManager;
-
-import javax.imageio.IIOException;
+import nl.hu.IPASS.persistence.PersistanceManager;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;

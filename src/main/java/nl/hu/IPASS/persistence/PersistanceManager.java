@@ -1,4 +1,4 @@
-package nl.hu.IPASS.Persistance;
+package nl.hu.IPASS.persistence;
 
 import com.azure.storage.blob.BlobClient;
 import com.azure.storage.blob.BlobContainerClient;

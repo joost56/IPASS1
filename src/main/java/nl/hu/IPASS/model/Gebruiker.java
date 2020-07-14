@@ -1,66 +1,90 @@
 package nl.hu.IPASS.model;
 
-import java.util.*;
+import java.io.Serializable;
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Gebruiker {
-    private String voornaam;
-    private String achternaam;
+public class Gebruiker implements Principal, Serializable {
     private String email;
-    private String datum;
+    private String wachtwoord;
+    private String role;
     private static List<Gebruiker> alleGebruikers = new ArrayList<>();
     private static List<String> alleUren = new ArrayList<>();
 
-    private Gebruiker(String voornaam, String achternaam
-//            , int gewerkteUren, String urenOmschrijving
-    ){
-        this.voornaam = voornaam;
-        this.achternaam = achternaam;
-//        this.gewerkteUren = gewerkteUren;
-//        this.urenOmschrijving = urenOmschrijving;
-//        alleUren.add(gewerkteUren, urenOmschrijving);
+    public Gebruiker(String email, String password) {
+        this.email = email;
+        this.wachtwoord = password;
+        role = "gebruiker";
+
+        if (!alleGebruikers.contains(this)) alleGebruikers.add(this);
     }
 
-    public static Gebruiker createGebruiker(String voornaam, String achternaam
-//            , int gewerkteUren, String urenOmschrijving
+    @Override public String getName() {
+        return email;
+    }
 
-    ) {
-        if (alleGebruikers.stream().noneMatch(e -> e.getVoornaam().equals(voornaam))) {
-            return new Gebruiker(voornaam, achternaam
-//                    , gewerkteUren, urenOmschrijving
-            );
+    public String getEmail() {
+        return email;
+    }
+
+    public String getWachtwoord() {
+        return wachtwoord;
+    }
+
+    public String getRole() {
+        return this.role;
+    }
+
+    public static List<Gebruiker> getAlleGebruikers() {
+        return alleGebruikers;
+    }
+
+    public static List<String> getAlleUren() {
+        return alleUren;
+    }
+
+    public void setEmail(String email) {
+        if (getAccountByEmail(email) != null || email.isEmpty() || !email.contains("@")) {
+            return;
+        }
+        this.email = email;
+    }
+
+    public Gebruiker setWachtwoord(String wachtwoord) {
+        if (wachtwoord.isEmpty() || wachtwoord.length() < 8 || wachtwoord.length() > 50) {
+            return null;
+        }
+        this.wachtwoord = wachtwoord;
+        return this;
+    }
+
+    public static Gebruiker getAccountByEmail(String email) {
+        return Gebruiker.getAlleGebruikers().stream()
+                .filter(e -> e.email.equals(email))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public static Gebruiker addGebruiker(String email, String wachtwoord) {
+        if (getAccountByEmail(email) != null || email.isEmpty() || !email.contains("@") || wachtwoord.isEmpty() || wachtwoord.length() < 8 || wachtwoord.length() > 50 ) {
+            return null;
+        }
+
+        return new Gebruiker(email, wachtwoord);
+    }
+
+    public static Gebruiker removeGebruiker(String email) {
+        Gebruiker.getAlleGebruikers().removeIf(e -> e.getEmail().equals(email));
+        return null;
+
+    }
+
+    public static String validateLogin(String email, String password) {
+        Gebruiker found = getAccountByEmail(email);
+        if (found != null) {
+            return password.equals(found.wachtwoord) ? found.getRole() : null;
         }
         return null;
     }
-
-//    private void String(int gewerkteUren, String urenOmschrijving){
-//        this.gewerkteUren = gewerkteUren;
-//        this.urenOmschrijving = urenOmschrijving;
-//        alleUren.add(this);
-//    }
-//    public static Gebruiker createUren(int gewerkteUren, String urenOmschrijving){
-//        alleUren.add(gewerkteUren, urenOmschrijving);
-//        return null;
-//    }
-
-//    public static List<String> getAlleUren() {
-//        return Collections.unmodifiableList(alleUren);
-//    }
-
-    public static List<Gebruiker> getAlleGebruikers(){
-        return Collections.unmodifiableList(alleGebruikers);
-    }
-
-    public String getVoornaam() {
-        return voornaam;
-    }
-
-//    public int getGewerkteUren() {
-//        return gewerkteUren;
-//    }
-//
-//    public String getUrenOmschrijving() {
-//        return urenOmschrijving;
-//    }
-
 }
-

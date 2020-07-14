@@ -1,6 +1,8 @@
 package nl.hu.IPASS.model;
 
-public class Klant {
+import java.io.Serializable;
+
+public class Klant implements Serializable {
     private String naam;
     private int teBetalenBedrag;
 

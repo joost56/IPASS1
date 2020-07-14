@@ -2,47 +2,37 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="Stylesheet" href="Inlog.css"/>
     <title>Inlogscherm</title>
+    <link rel="Stylesheet" href="css/index.css"/>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+
+    <script type="text/javascript" src="js/authenticatie.js"></script>
 </head>
+
 <body>
-<section>
-    <h2>Inlogscherm</h2>
-    <form id="loginform" action="Hoofdscherm.html" >
-        <input type="text" placeholder="emailadres" name="username" id="username"/><br>
-        <input type="password" placeholder="wachtwoord" name="password" id="password"/><br>
-        <button type="button" id="login" name="login"> <a href="Hoofdscherm.html">Log in</a></button>
 
-    </form>
-</section>
-
-</body>
-</html>
+<header></header>
 
 
+<main>
+    <section>
+        <h2>Inlogscherm</h2>
+        <form id="loginform">
+            <label for="username" hidden>Emailadres</label>
+            <input type="text" placeholder="emailadres" name="email" id="username"/><br>
+            <label for="password" hidden>Password</label>
+            <input type="password" placeholder="wachtwoord" name="password" id="password"/><br> <br>
 
+            <input name="subject" type="button" id="inloggen" value="Log in"/> <br/> <br/>
+            <!--        <button type="button" id="login" name="login"> <a href="hoofdscherm.html">Log in</a></button>-->
+            <p id="meldingLogin"></p>
+        </form>
+    </section>
+</main>
 
-
-<script type="text/javascript">
-    function login(event) {
-        var formData = new FormData(document.querySelector("#loginform"));
-        var encData = new URLSearchParams(formData.entries());
-
-        fetch("rest/authentication", { method: 'POST', body: encData })
-            .then(function (response) {
-                if (response.ok) {
-                    // return window.location.href = "/Hoofdscherm.html";
-                    return response.json();
-                }else{
-                    throw "wrong username/password";
-                }
-            })
-
-            .then(myJson => window.sessionStorage.setItem("myJWT", myJson.JWT))
-            .catch(error => console.log(error));
-    }
-    document.querySelector("#login").addEventListener("click", login);
-</script>
+<footer></footer>
 
 </body>
 </html>

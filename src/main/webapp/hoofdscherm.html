@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/hoofdscherm.css"/>
+    <title>Factuur</title>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+<aside>
+    <h2>Menu</h2>
+    <hr/>
+    <h3>hier komen de klanten</h3>
+    <article>
+        <input type="submit" value="wijzig klantgegevens" id="wijzig klant gegevens" />&nbsp;
+        <button type="button" id="uitloggen"> <a href="index.html">Log uit</a></button>&nbsp;
+
+    </article>
+</aside>
+
+<form id="POSTurenform">
+    <label for="uren">Gewerkte uren:<input type="number" id="uren" name="uren"/></label>
+    <label for="omschrijving">Uren omschrijving:<input type="text" id="omschrijving" name="omschrijving"/></label>
+    <input type="button" id="post" value="opslaan">
+
+    <p id="postUren"></p>
+
+</form>
+
+<form id="PUTurenform">
+    <label for="putid">id:<input type="text" id="putid" name="id"></label>
+    <label for="puturen">uren:<input type="number" id="puturen" name="uren"/></label>
+    <label for="putomschrijving">omschrijving:<input type="text" id="putomschrijving" name="omschrijving"/></label>
+    <input type="button" id="put" value="Wijzig!">
+
+    <p id="putUur"></p>
+
+</form>
+
+<form id="DELETEurenform">
+    <label for="deleteid">id:<input type="number" id="deleteid" name="deleteid"></label>
+    <input type="button" id="delete" value="Delete!">
+
+    <p id="deleteUur"></p>
+
+</form>
+
+<section>
+    <a href="/rest/uren">Bekijk alle uren </a>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button id="genereer factuur" onclick="Export2Doc('exportContent');">Genereer als factuur</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <div id="exportContent">
+        <p class="hide-me">
+        </p>
+<!--        <p id="pakketje">-->
+    </div>
+</section>
+
+<script type="text/javascript" src="js/hoofdscherm.js"></script>
+

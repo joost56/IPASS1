@@ -1,13 +1,15 @@
 package nl.hu.IPASS.security;
 
+import nl.hu.IPASS.model.Gebruiker;
+
 import java.security.Principal;
 import javax.ws.rs.core.SecurityContext;
 
 public class MySecurityContext implements SecurityContext {
-    private MyUser user;
+    private Gebruiker user;
     private String scheme;
 
-    public MySecurityContext(MyUser user, String scheme){
+    public MySecurityContext(Gebruiker user, String scheme){
         this.user = user;
         this.scheme = scheme;
     }
@@ -19,8 +21,8 @@ public class MySecurityContext implements SecurityContext {
 
     @Override
     public boolean isUserInRole(String rol) {
-        if (user.getRol()!=null){
-            return rol.equals(user.getRol());
+        if (user.getRole()!=null){
+            return rol.equals(user.getRole());
         }
         return false;
     }
