@@ -9,55 +9,88 @@
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 <body>
-<aside>
-    <h2>Menu</h2>
-    <hr/>
-    <h3>hier komen de klanten</h3>
-    <article>
-        <input type="submit" value="wijzig klantgegevens" id="wijzig klant gegevens" />&nbsp;
-        <button type="button" id="uitloggen"> <a href="index.html">Log uit</a></button>&nbsp;
+    <aside>
+        <h1>Menu</h1>
+        <hr/>
+        <h2>hier komen de klanten</h2>
+        <article>
+            <input type="submit" value="wijzig klantgegevens" id="wijzig klant gegevens" />&nbsp;
+            <button type="button" id="uitloggen"> <a href="index.html">Log uit</a></button>&nbsp;
+        </article>
+    </aside>
 
-    </article>
-</aside>
-
-<form id="POSTurenform">
-    <label for="uren">Gewerkte uren:<input type="number" id="uren" name="uren"/></label>
-    <label for="omschrijving">Uren omschrijving:<input type="text" id="omschrijving" name="omschrijving"/></label>
-    <input type="button" id="post" value="opslaan">
-
-    <p id="postUren"></p>
-
-</form>
-
-<form id="PUTurenform">
-    <label for="putid">id:<input type="text" id="putid" name="id"></label>
-    <label for="puturen">uren:<input type="number" id="puturen" name="uren"/></label>
-    <label for="putomschrijving">omschrijving:<input type="text" id="putomschrijving" name="omschrijving"/></label>
-    <input type="button" id="put" value="Wijzig!">
-
-    <p id="putUur"></p>
-
-</form>
-
-<form id="DELETEurenform">
-    <label for="deleteid">id:<input type="number" id="deleteid" name="deleteid"></label>
-    <input type="button" id="delete" value="Delete!">
-
-    <p id="deleteUur"></p>
-
-</form>
-
-<section>
-    <a href="/rest/uren">Bekijk alle uren </a>
-
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <button id="genereer factuur" onclick="Export2Doc('exportContent');">Genereer als factuur</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <div id="exportContent">
-        <p class="hide-me">
-        </p>
-<!--        <p id="pakketje">-->
+    <div>
+        <img src="background1.jpg" alt="background" id="backgroundImage">
     </div>
-</section>
+
+
+    <form id="POSTurenform">
+        <label for="uren" >Gewerkte uren:</label>
+        <input type="number" id="uren" name="uren"/>
+        <label for="omschrijving" >Uren omschrijving:</label>
+        <input type="text" id="omschrijving" name="omschrijving"/>
+        <input type="button" id="post" value="opslaan ">
+        <button type="button" onclick="saveDynamicDataToFile();">Click to Save</button>
+
+        <p id="postUren"></p>
+
+    </form>
+
+    <form id="PUTurenform">
+        <label for="putid">id:</label>
+        <input type="number" id="putid" name="id">
+        <label for="puturen">uren:</label>
+        <input type="number" id="puturen" name="uren"/>
+        <label for="putomschrijving">omschrijving:</label>
+        <input type="text" id="putomschrijving" name="omschrijving"/>
+        <input type="button" id="put" value="Wijzig!">
+
+        <p id="putUur"></p>
+
+    </form>
+
+    <form id="DELETEurenform">
+        <label for="deleteid">id:</label>
+        <input type="number" id="deleteid" name="deleteid">
+        <input type="button" id="delete" value="Delete!">
+
+        <p id="deleteUur"></p>
+
+    </form>
+
+    <section>
+        <a href="/rest/uren">Bekijk alle uren </a>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <form id="PRINTurenform">
+            <input type="button" id="print" name="print" value="Print!">
+
+            <p id="printUur"></p>
+        </form>
+<!--        <button id="genereer factuur" >Genereer als factuur</button>-->
+<!--        onclick="Export2Doc('exportContent');"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+<!--        <div id="exportContent">-->
+<!--            <p class="hide-me">-->
+<!--            </p>-->
+    <!--        <p id="pakketje">-->
+<!--        </div>-->
+    </section>
+</body>
 
 <script type="text/javascript" src="js/hoofdscherm.js"></script>
+<script src="js/FileSaver.js"></script>
+<script>
+
+    function saveDynamicDataToFile() {
+
+        var userInputUren = document.getElementById("uren").value;
+        // var userInputOmschrijving = document.getElementById("omschrijving").value;
+        // var userInputDatum = document.getElementById("uren").value;
+
+
+        var inputUren = new Blob([userInputUren],  { type: "text/plain;charset=utf-8" });
+        saveAs(inputUren, "Factuur.txt");
+    }
+
+</script>
 

@@ -1,5 +1,8 @@
 package nl.hu.IPASS.model;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.*;
 
@@ -18,7 +21,6 @@ public class Uren implements Serializable {
         this.datum = datum;
         id = ++numUren;
     }
-
 
     public Uren(int id, int gewerkteUren, String urenOmschrijving, String datum) {
         this.id = id;
@@ -49,13 +51,21 @@ public class Uren implements Serializable {
         return alleUren.set(alleUren.indexOf(Uren.getUur(newUren.getId())), newUren);
     }
 
-//    public static Uren removeUur(int id) {
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public static int getNumUren() {
+        return numUren;
+    }
+
+    //    public static Uren removeUur(int id) {
 //        return alleUren.remove(alleUren.indexOf(Uren.getUur(id)));
 //    }
 
-    public static boolean removeUur(int id){
-        if (id>0) return alleUren.remove(alleUren.indexOf(Uren.getUur(id)))!=null;
-        return false;
+    public static Uren removeUur(int id){
+        Uren.getAlleUren().removeIf(uren -> uren.getId() == id);
+        return null;
     }
 
     public static HashMap<String, String> getHashalleuren() {
@@ -96,6 +106,15 @@ public class Uren implements Serializable {
         this.gewerkteUren = gewerkteUren;
     }
 
+
+    public static void setAlleUren(List<Uren> alleUren) {
+        Uren.alleUren = alleUren;
+    }
+
+    public void setDatum(String datum) {
+        this.datum = datum;
+    }
+
     public static void setUren(int id, int gewerkteUren, String urenOmschrijving, String datum){
         new Uren(id ,gewerkteUren, urenOmschrijving, datum);
     }
@@ -103,9 +122,6 @@ public class Uren implements Serializable {
     public void setUrenOmschrijving(String urenOmschrijving) {
         this.urenOmschrijving = urenOmschrijving;
     }
-
-
-
 
     @Override
     public boolean equals(Object o) {

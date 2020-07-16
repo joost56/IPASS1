@@ -32,27 +32,28 @@ import javax.ws.rs.Path;
 
         @POST
         @Produces(MediaType.APPLICATION_JSON)
-        public Response authenticateUserByPassword(@FormParam("email") String email, @FormParam("password") String password) {
+        public Response authenticateUserByPassword(@FormParam("email") String emailadres, @FormParam("password") String password) {
             try{
-                if(email.trim().equals("") || password.trim().equals("")) {
+                if(emailadres.trim().equals("") || password.trim().equals("")) {
                     return Response.status(Response.Status.CONFLICT).entity(new AbstractMap.SimpleEntry<>("error", "De velden mogen niet leeg zijn!")).build();
                 }
 
-                if(!email.contains("@")) {
+                if(!emailadres.contains("@")) {
                     return Response.status(Response.Status.CONFLICT).entity(new AbstractMap.SimpleEntry<>("error", "Het emailadres moet een @ bevatten!")).build();
                 }
 
-                Gebruiker gebruikerBijEmail = Gebruiker.getAlleGebruikers().stream().filter(gebruiker -> gebruiker.getEmail().equals(email) && gebruiker.getWachtwoord().equals(password)).findFirst().orElse(null);
+                Gebruiker gebruikerBijEmail = Gebruiker.getAlleGebruikers().stream().filter(gebruiker -> gebruiker.getEmail().equals(emailadres) && gebruiker.getWachtwoord().equals(password)).findFirst().orElse(null);
 
-                if(gebruikerBijEmail != null) {
-
-                    String role = Gebruiker.validateLogin(email, password);
-                    String token = createToken(email, role);
-
-                    AbstractMap.SimpleEntry<String, String> JWT = new AbstractMap.SimpleEntry<>("JWT", token);
-                    return Response.ok(JWT).build();
+                if(gebruikerBijEmail == null) {
+                    return Response.status(Response.Status.CONFLICT).entity(new AbstractMap.SimpleEntry<>("error", "Het emailadres of wachtwoord is onjuist!")).build();
                 }
-                return Response.status(Response.Status.CONFLICT).entity(new AbstractMap.SimpleEntry<>("error", "Het emailadres of wachtwoord is onjuist!")).build();
+
+                String role = Gebruiker.validateLogin(emailadres, password);
+                String token = createToken(emailadres, role);
+
+                AbstractMap.SimpleEntry<String, String> JWT = new AbstractMap.SimpleEntry<>("JWT", token);
+                return Response.ok(JWT).build();
+
             }
             catch (JwtException | IllegalArgumentException e){
                 return Response.status(Response.Status.UNAUTHORIZED).build();
