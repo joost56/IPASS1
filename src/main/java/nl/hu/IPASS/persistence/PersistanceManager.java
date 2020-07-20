@@ -3,6 +3,7 @@ package nl.hu.IPASS.persistence;
 import com.azure.storage.blob.BlobClient;
 import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.BlobContainerClientBuilder;
+import nl.hu.IPASS.model.Klant;
 import nl.hu.IPASS.model.Uren;
 
 import java.io.*;
@@ -36,7 +37,7 @@ public class PersistanceManager {
         baos.close();
     }
 
-    public static void LadenUrenVanAzure() throws IOException, ClassNotFoundException { // Voor het inladen van alle accounts
+    public static void LadenUrenVanAzure() throws IOException, ClassNotFoundException {
         if (blobContainer.exists()) {
             BlobClient uren_blob = blobContainer.getBlobClient("uren_blob");
 
@@ -49,6 +50,40 @@ public class PersistanceManager {
 
                 List<Uren> uren = (List<Uren>) ois.readObject();
                 Uren.setAlleUren(uren);
+            }
+        }
+    }
+
+    public static void OpslaanKlantNaarAzure() throws IOException {
+        BlobClient klant_blob = blobContainer.getBlobClient("klant_blob");
+        List<Klant> opslaanKlant = Klant.getAlleGegevens();
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(baos);
+        oos.writeObject(opslaanKlant);
+
+        byte[] bytez = baos.toByteArray();
+        ByteArrayInputStream bais = new ByteArrayInputStream(bytez);
+        klant_blob.upload(bais, bytez.length, true);
+
+        oos.close();
+        bais.close();
+        baos.close();
+    }
+
+    public static void LadenKlantVanAzure() throws IOException, ClassNotFoundException {
+        if (blobContainer.exists()) {
+            BlobClient klant_blob = blobContainer.getBlobClient("klant_blob");
+
+            if (klant_blob.exists()) {
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                klant_blob.download(baos);
+
+                ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+                ObjectInputStream ois = new ObjectInputStream(bais);
+
+                List<Klant> klant = (List<Klant>) ois.readObject();
+                Klant.setAlleGegevens(klant);
             }
         }
     }

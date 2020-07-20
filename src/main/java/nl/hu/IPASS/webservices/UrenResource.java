@@ -26,23 +26,11 @@ public class UrenResource {
     @Path("toevoegen")
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed("gebruiker")
-    public Response createUren(@FormParam("uren") int ur, @FormParam("omschrijving") String om, @FormParam("datum") String datum, @FormParam("id") int id){
+    public Response createUren(@FormParam("uren") int ur, @FormParam("omschrijving") String om, @FormParam("id") int id){
         if(ur <= 0) {return Response.status(Response.Status.CONFLICT).entity(new AbstractMap.SimpleEntry<>("error", "Uren mag niet kleiner of gelijk aan 0 zijn!")).build();}
         if(om.trim().equals("")) {return Response.status(Response.Status.CONFLICT).entity(new AbstractMap.SimpleEntry<>("error", "Omschrijving mag niet leeg zijn!")).build();}
         while (Uren.getAlleUren().contains(id)){id = ++id;}
-        Uren nieuweUren = Uren.createUren(ur, om, datum);
-
-
-
-//        try {
-//            FileWriter myWriter = new FileWriter("Factuur.txt");
-//            myWriter.write(ur);
-//            myWriter.close();
-//            System.out.println("Successfully wrote to the file.");
-//        } catch (IOException e) {
-//            System.out.println("An error occurred.");
-//            e.printStackTrace();
-//        }
+        Uren nieuweUren = Uren.createUren(ur, om, Uren.getDatum());
 
         return Response.ok(nieuweUren).build();
     }

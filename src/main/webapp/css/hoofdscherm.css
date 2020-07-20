@@ -73,7 +73,6 @@ section{
     top: 0;
     left: 0;
     z-index: -1;
-
     min-width: 100%;
     min-height: 100%;
     background-repeat: no-repeat;
@@ -125,4 +124,7 @@ p.hide-me{
 
 table{
     border-style: solid;
+}
+#omschrijving{
+    vertical-align: top;
 }

@@ -1,3 +1,11 @@
+uitloggenButton = document.getElementById("uitloggen");
+
+uitloggenButton.onclick = function () {
+    if (window.sessionStorage.getItem("myJWT") !== null) {
+        window.sessionStorage.removeItem("myJWT");
+    }
+};
+
 //POST/toevoegen
 $(document).ready(function() {
     var postUren = document.getElementById('postUren');
@@ -88,7 +96,7 @@ $(document).ready(function() {
             method: 'DELETE',
             headers: {
                 'Authorization': 'Bearer ' + window.sessionStorage.getItem("myJWT")
-            },body:encData
+            }, body: encData
         };
 
         fetch("rest/uur/verwijderen", fetchoptions)
@@ -120,20 +128,45 @@ $(document).ready(function() {
             })
             .catch(error => console.log(error));
     });
+
+
+$(document).ready(function() {
+    var printUren = document.getElementById('printUren');
+
+    document.querySelector("#print").addEventListener("click", function () {
+        var formData = new FormData(document.querySelector("#PRINTurenform"));
+        var encData = new URLSearchParams(formData.entries());
+        var fetchoptions = {
+            method: "PUT",
+            headers: {
+                Authorization: 'Bearer ' + window.sessionStorage.getItem("myJWT")
+            },
+            body: encData
+        };
+        fetch("rest/printen/print", fetchoptions)
+            .then(function (response) {
+                if (response.ok) {
+                    printUren.style.color = "green";
+                    printUren.innerText = "Printen gelukt!";
+                }
+                if (response.status === 403) {
+                    printUren.style.color = "red";
+                    printUren.innerText = "Log in om deze functie te kunnen gebruiken";
+                }
+                return response.json();
+            })
+            .then(myJson => {
+                var error = myJson["error"];
+
+                if (error !== undefined) {
+                    printUren.style.color = "red";
+                    printUren.style.fontSize = "small";
+                    printUren.innerText = error;
+                }
+            })
+            .catch(error => console.log(error));
+    });
 });
-
-
-// document.querySelector("#delete").addEventListener("click", function () {
-//     var id = document.querySelector("#deleteid").value;
-//
-//     fetch("rest/uur/" + id, {method: 'DELETE'})
-//         .then(function (response) {
-//             if (response.ok) console.log("Uur verwijderd");
-//             else if (response.status == 404) console.log("Uur niet gevonden")
-//             else console.log("Er gebeurde iets raars")
-//         });
-// });
-
 
 
 // function f() {
@@ -166,13 +199,7 @@ $(document).ready(function() {
 //         document.body.removeChild(downloadLink);
 //     }
 //
-//     uitloggenButton = document.getElementById("uitloggen");
-//
-//     uitloggenButton.onclick = function () {
-//         if (window.sessionStorage.getItem("myJWT") !== null) {
-//             window.sessionStorage.removeItem("myJWT");
-//         }
-//   };
 
+});
 // }
 

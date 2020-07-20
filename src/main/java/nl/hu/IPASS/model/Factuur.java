@@ -1,15 +1,20 @@
 package nl.hu.IPASS.model;
 
+import nl.hu.IPASS.persistence.PersistanceManager;
+
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Factuur implements Serializable {
-    public static Factuur deFactuur = new Factuur(123456789, "12 november 2020 ofzo");
     private int factuurNummer;
     private String factuurDatum;
+    private static List<Factuur> urenVanBlob = new ArrayList<>();
 
-    public Factuur(int factuurNummer, String factuurDatum){
+
+    public Factuur(int factuurNummer){
         this.factuurNummer = factuurNummer;
-        this.factuurDatum = factuurDatum;
     }
 
     public int getFactuurNummer() {
@@ -26,6 +31,11 @@ public class Factuur implements Serializable {
 
     public void setFactuurNummer(int factuurNummer) {
         this.factuurNummer = factuurNummer;
+    }
+
+    public static Factuur createNummer(int factuurNummer){
+        Factuur newFactuur = new Factuur(factuurNummer);
+        return newFactuur;
     }
 
     @Override

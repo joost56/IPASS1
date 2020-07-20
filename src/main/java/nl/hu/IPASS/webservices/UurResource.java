@@ -43,7 +43,7 @@ public class UurResource {
     @RolesAllowed("gebruiker")
     public Response updateUur(@FormParam("uren") int ur, @FormParam("omschrijving") String om, @FormParam("datum") String da, @FormParam("id") int id) {
         if (id <= 0) {
-            return Response.status(Response.Status.CONFLICT).entity(new AbstractMap.SimpleEntry<>("error", "Naam mag niet leeg zijn!")).build();
+            return Response.status(Response.Status.CONFLICT).entity(new AbstractMap.SimpleEntry<>("error", "Id mag niet leeg zijn!")).build();
         }
         if (ur <= 0) {
             return Response.status(Response.Status.CONFLICT).entity(new AbstractMap.SimpleEntry<>("error", "Uren mag niet kleiner of gelijk aan 0 zijn!")).build();

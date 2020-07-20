@@ -18,8 +18,9 @@ public class Uren implements Serializable {
     private Uren(int gewerkteUren, String urenOmschrijving, String datum){
         this.gewerkteUren = gewerkteUren;
         this.urenOmschrijving = urenOmschrijving;
-        this.datum = datum;
+        this.datum = Uren.getDatum();
         id = ++numUren;
+
     }
 
     public Uren(int id, int gewerkteUren, String urenOmschrijving, String datum) {
@@ -80,7 +81,7 @@ public class Uren implements Serializable {
         return id;
     }
 
-    public String getDatum(){
+    public static String getDatum(){
 //        LocalDate datum = LocalDate.now();
 //        String datumString = datum.toString();
 //        return  datumString;
@@ -129,11 +130,13 @@ public class Uren implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         Uren uren = (Uren) o;
         return gewerkteUren == uren.gewerkteUren &&
-                urenOmschrijving.equals(uren.urenOmschrijving);
+                id == uren.id &&
+                urenOmschrijving.equals(uren.urenOmschrijving) &&
+                datum.equals(uren.datum);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(gewerkteUren, urenOmschrijving);
+        return Objects.hash(gewerkteUren, urenOmschrijving, datum, id);
     }
 }

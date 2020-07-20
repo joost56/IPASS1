@@ -85,7 +85,7 @@ var saveAs = _global.saveAs || (
 
             a.download = name;
             a.rel = 'noopener'; // tabnabbing
-            
+
             // a.target = '_blank'
 
             if (typeof blob === 'string') {

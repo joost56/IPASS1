@@ -14,7 +14,8 @@
         <hr/>
         <h2>hier komen de klanten</h2>
         <article>
-            <input type="submit" value="wijzig klantgegevens" id="wijzig klant gegevens" />&nbsp;
+            <button type="button" id="klantgegevens"> <a href="klantgegevens.html">Wijzig klantgegevens</a></button>
+<!--            <input name="subject" type="button" id="uitloggen" value="Log uit"/>-->
             <button type="button" id="uitloggen"> <a href="index.html">Log uit</a></button>&nbsp;
         </article>
     </aside>
@@ -23,18 +24,6 @@
         <img src="background1.jpg" alt="background" id="backgroundImage">
     </div>
 
-
-    <form id="POSTurenform">
-        <label for="uren" >Gewerkte uren:</label>
-        <input type="number" id="uren" name="uren"/>
-        <label for="omschrijving" >Uren omschrijving:</label>
-        <input type="text" id="omschrijving" name="omschrijving"/>
-        <input type="button" id="post" value="opslaan ">
-        <button type="button" onclick="saveDynamicDataToFile();">Click to Save</button>
-
-        <p id="postUren"></p>
-
-    </form>
 
     <form id="PUTurenform">
         <label for="putid">id:</label>
@@ -58,14 +47,29 @@
 
     </form>
 
+    <form id="POSTurenform">
+        <label for="uren" >Gewerkte uren:</label>
+        <input type="number" id="uren" name="uren"/>
+        <label for="omschrijving" >Uren omschrijving:</label>
+        <textarea id="omschrijving" name="omschrijving" rows="10" cols="40"></textarea>
+        <!--        <input type="text" id="omschrijving" name="omschrijving"/>-->
+        <input type="button" id="post" value="opslaan ">
+<!--        <button type="button" onclick="saveDynamicDataToFile();">Click to Save</button>-->
+
+        <p id="postUren"></p>
+
+    </form>
+
     <section>
         <a href="/rest/uren">Bekijk alle uren </a>
 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <form id="PRINTurenform">
+            <label for="factuurnummer" >Factuurnummer:</label>
+            <input type="number" id="factuurnummer" name="factuurnummer"/>
             <input type="button" id="print" name="print" value="Print!">
 
-            <p id="printUur"></p>
+            <p id="printUren"></p>
         </form>
 <!--        <button id="genereer factuur" >Genereer als factuur</button>-->
 <!--        onclick="Export2Doc('exportContent');"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
@@ -81,16 +85,16 @@
 <script src="js/FileSaver.js"></script>
 <script>
 
-    function saveDynamicDataToFile() {
-
-        var userInputUren = document.getElementById("uren").value;
-        // var userInputOmschrijving = document.getElementById("omschrijving").value;
-        // var userInputDatum = document.getElementById("uren").value;
-
-
-        var inputUren = new Blob([userInputUren],  { type: "text/plain;charset=utf-8" });
-        saveAs(inputUren, "Factuur.txt");
-    }
+    // function saveDynamicDataToFile() {
+    //
+    //     var userInputUren = document.getElementById("uren").value;
+    //     // var userInputOmschrijving = document.getElementById("omschrijving").value;
+    //     // var userInputDatum = document.getElementById("uren").value;
+    //
+    //
+    //     var inputUren = new Blob([userInputUren],  { type: "text/plain;charset=utf-8" });
+    //     saveAs(inputUren, "Factuur.txt");
+    // }
 
 </script>
 

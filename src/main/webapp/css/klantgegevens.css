@@ -1,0 +1,27 @@
+#backgroundImage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    min-width: 100%;
+    min-height: 100%;
+    background-repeat: no-repeat;
+}
+
+#opdrachtomschrijving{
+    vertical-align: top;
+}
+
+#klantgegevensform{
+    text-align: right;
+    margin-right: 490px;
+}
+
+#overigeGegevens{
+    text-align: right;
+    margin-right: 450px;
+}
+
+h1{
+    margin-left: 600px;
+}
