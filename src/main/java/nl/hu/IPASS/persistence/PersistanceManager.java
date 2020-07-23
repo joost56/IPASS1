@@ -3,6 +3,7 @@ package nl.hu.IPASS.persistence;
 import com.azure.storage.blob.BlobClient;
 import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.BlobContainerClientBuilder;
+import nl.hu.IPASS.model.Bedrijf;
 import nl.hu.IPASS.model.Klant;
 import nl.hu.IPASS.model.Uren;
 
@@ -84,6 +85,40 @@ public class PersistanceManager {
 
                 List<Klant> klant = (List<Klant>) ois.readObject();
                 Klant.setAlleGegevens(klant);
+            }
+        }
+    }
+
+    public static void OpslaanBedrijfNaarAzure() throws IOException {
+        BlobClient bedrijf_blob = blobContainer.getBlobClient("bedrijf_blob");
+        List<Bedrijf> opslaanBedrijf = Bedrijf.getBedrijfs();
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(baos);
+        oos.writeObject(opslaanBedrijf);
+
+        byte[] bytez = baos.toByteArray();
+        ByteArrayInputStream bais = new ByteArrayInputStream(bytez);
+        bedrijf_blob.upload(bais, bytez.length, true);
+
+        oos.close();
+        bais.close();
+        baos.close();
+    }
+
+    public static void LadenBedrijfVanAzure() throws IOException, ClassNotFoundException {
+        if (blobContainer.exists()) {
+            BlobClient bedrijf_blob = blobContainer.getBlobClient("bedrijf_blob");
+
+            if (bedrijf_blob.exists()) {
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bedrijf_blob.download(baos);
+
+                ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+                ObjectInputStream ois = new ObjectInputStream(bais);
+
+                List<Bedrijf> bedrijf = (List<Bedrijf>) ois.readObject();
+                Bedrijf.setBedrijfs(bedrijf);
             }
         }
     }

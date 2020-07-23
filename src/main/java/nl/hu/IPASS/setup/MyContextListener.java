@@ -18,9 +18,11 @@ public class MyContextListener implements ServletContextListener {
         try{
             PersistanceManager.LadenUrenVanAzure();
             PersistanceManager.LadenKlantVanAzure();
+            PersistanceManager.LadenBedrijfVanAzure();
             System.out.println("beide loaded");
             System.out.println(Uren.getAlleUren());
             System.out.println(Klant.getAlleKlanten());
+            System.out.println(Bedrijf.getBedrijfs());
         }catch (Exception e) {
             System.out.println("cannot load");
             e.printStackTrace();
@@ -37,8 +39,10 @@ public class MyContextListener implements ServletContextListener {
         try{
             PersistanceManager.OpslaanUrenNaarAzure();
             PersistanceManager.OpslaanKlantNaarAzure();
+            PersistanceManager.OpslaanBedrijfNaarAzure();
             System.out.println(Uren.getAlleUren());
             System.out.println(Klant.getAlleKlanten());
+            System.out.println(Bedrijf.getBedrijfs());
             System.out.println("beide saved");
         }catch (IOException ioe) {
             System.out.println("failed to save");
