@@ -169,6 +169,7 @@ $(document).ready(function() {
 });
 
 
+
 // function f() {
 //     let omschrijvingJson = myJson.omschrijving;
 //     let urenJson = myJson.uren;

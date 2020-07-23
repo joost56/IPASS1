@@ -11,7 +11,8 @@ public class Klant implements Serializable {
     private String bedrijfspostcode;
     private String contactpersoon;
     private int tarief;
-    private static List<Klant> alleGegevens = new ArrayList<>();
+    private static List<Klant> alleKlanten = new ArrayList<>();
+    private static List<String> alleKlantNamen = new ArrayList<>();
 
     public Klant(String bedrijfsnaam, String bedrijfsadres, String bedrijfspostcode, String contactpersoon, int tarief) {
         this.bedrijfsnaam = bedrijfsnaam;
@@ -19,20 +20,26 @@ public class Klant implements Serializable {
         this.bedrijfspostcode = bedrijfspostcode;
         this.contactpersoon = contactpersoon;
         this.tarief = tarief;
-    }
 
-    public static List<Klant> getAlleGegevens() {
-        return alleGegevens;
     }
 
     public static Klant createKlant(String bedrijfsnaam, String bedrijfsadres, String bedrijfspostcode, String contactpersoon, int tarief){
         Klant newKlant = new Klant(bedrijfsnaam, bedrijfsadres, bedrijfspostcode, contactpersoon, tarief);
-        alleGegevens.add(newKlant);
+        alleKlanten.add(newKlant);
+        alleKlantNamen.add(bedrijfsnaam);
         return newKlant;
     }
 
-    public static void setAlleGegevens(List<Klant> alleGegevens) {
-        Klant.alleGegevens = alleGegevens;
+    public static List<Klant> getAlleKlanten() {
+        return alleKlanten;
+    }
+
+    public static List<String> getAlleKlantNamen(){
+        return alleKlantNamen;
+    }
+
+    public static void setAlleGegevens(List<Klant> alleKlanten) {
+        Klant.alleKlanten = alleKlanten;
     }
 
     public String getBedrijfsnaam() {

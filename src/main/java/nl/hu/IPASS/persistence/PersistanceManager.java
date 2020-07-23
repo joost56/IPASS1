@@ -56,7 +56,7 @@ public class PersistanceManager {
 
     public static void OpslaanKlantNaarAzure() throws IOException {
         BlobClient klant_blob = blobContainer.getBlobClient("klant_blob");
-        List<Klant> opslaanKlant = Klant.getAlleGegevens();
+        List<Klant> opslaanKlant = Klant.getAlleKlanten();
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(baos);

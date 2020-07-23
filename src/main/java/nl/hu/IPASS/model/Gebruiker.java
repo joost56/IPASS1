@@ -20,6 +20,8 @@ public class Gebruiker implements Principal, Serializable {
         if (!alleGebruikers.contains(this)) alleGebruikers.add(this);
     }
 
+
+
     @Override public String getName() {
         return email;
     }

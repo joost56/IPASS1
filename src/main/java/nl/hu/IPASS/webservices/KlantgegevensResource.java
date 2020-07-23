@@ -15,8 +15,8 @@ public class KlantgegevensResource {
 
         @GET
         @Produces(MediaType.APPLICATION_JSON)
-        public List<Klant> getGegevens(){
-            return Klant.getAlleGegevens();
+        public List<Klant> getKlanten(){
+            return Klant.getAlleKlanten();
         }
 
         @POST
@@ -25,10 +25,19 @@ public class KlantgegevensResource {
         @RolesAllowed("gebruiker")
         public Response createKlant(@FormParam("bedrijfsnaam") String bn, @FormParam("bedrijfsadres") String ba, @FormParam("bedrijfspostcode") String bp, @FormParam("contactpersoon") String cp, @FormParam("tarief") int tarief) {
 
-                if(bn.trim().equals("") || ba.trim().equals("") || bp.trim().equals("") || cp.trim().equals("") || tarief <= 0) {return Response.status(Response.Status.CONFLICT).entity(new AbstractMap.SimpleEntry<>("error", "Alle velden moeten worden ingevuld!")).build();}
-                Klant nieuweKlant = Klant.createKlant(bn, ba, bp, cp, tarief);
+                if (bn.trim().equals("") || ba.trim().equals("") || bp.trim().equals("") || cp.trim().equals("") || tarief <= 0) {
+                        return Response.status(Response.Status.CONFLICT).entity(new AbstractMap.SimpleEntry<>("error", "Alle velden moeten worden ingevuld!")).build();
+                }
+                if (!getKlanten().contains(bn) || !getKlanten().contains(ba)) {
+                        Klant nieuweKlant = Klant.createKlant(bn, ba, bp, cp, tarief);
+                        String klantNaam = Klant.getAlleKlantNamen().toString();
+//                        Response.status(Response.Status.CONFLICT).entity(new AbstractMap.SimpleEntry<>("message", klantNaam)).build();
+                        return Response.ok(nieuweKlant).build();
 
-                return Response.ok(nieuweKlant).build();
+                }
+                else {
+                        return Response.status(Response.Status.CONFLICT).entity(new AbstractMap.SimpleEntry<>("error", "Klant met deze naam of bedrijfsadres bestaat al!")).build();
+                }
         }
 
 }

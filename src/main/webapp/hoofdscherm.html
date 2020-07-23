@@ -13,8 +13,9 @@
         <h1>Menu</h1>
         <hr/>
         <h2>hier komen de klanten</h2>
+            <p id="postKlant"></p>
         <article>
-            <button type="button" id="klantgegevens"> <a href="klantgegevens.html">Wijzig klantgegevens</a></button>
+            <button type="button" id="klantgegevens"> <a href="klantgegevens.html">Voeg nieuwe klant toe</a></button>
 <!--            <input name="subject" type="button" id="uitloggen" value="Log uit"/>-->
             <button type="button" id="uitloggen"> <a href="index.html">Log uit</a></button>&nbsp;
         </article>
@@ -63,6 +64,14 @@
     <section>
         <a href="/rest/uren">Bekijk alle uren </a>
 
+        <button onclick="myFunction()">Try it</button>
+
+        <dialog id="myDialog">
+            <label for="naam" >Klantnaam: </label>
+            <input type="text" id="naam" name="naam"/>
+        </dialog>
+
+
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <form id="PRINTurenform">
             <label for="factuurnummer" >Factuurnummer:</label>
@@ -84,6 +93,10 @@
 <script type="text/javascript" src="js/hoofdscherm.js"></script>
 <script src="js/FileSaver.js"></script>
 <script>
+    function myFunction() {
+        var x = document.getElementById("myDialog");
+        x.open = true;
+    }
 
     // function saveDynamicDataToFile() {
     //

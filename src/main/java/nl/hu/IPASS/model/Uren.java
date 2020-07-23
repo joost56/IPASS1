@@ -18,9 +18,8 @@ public class Uren implements Serializable {
     private Uren(int gewerkteUren, String urenOmschrijving, String datum){
         this.gewerkteUren = gewerkteUren;
         this.urenOmschrijving = urenOmschrijving;
-        this.datum = Uren.getDatum();
+        datum = Uren.getDatum();
         id = ++numUren;
-
     }
 
     public Uren(int id, int gewerkteUren, String urenOmschrijving, String datum) {

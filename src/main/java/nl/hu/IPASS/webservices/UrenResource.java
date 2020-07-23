@@ -26,11 +26,12 @@ public class UrenResource {
     @Path("toevoegen")
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed("gebruiker")
-    public Response createUren(@FormParam("uren") int ur, @FormParam("omschrijving") String om, @FormParam("id") int id){
+    public Response createUren(@FormParam("uren") int ur, @FormParam("omschrijving") String om, @FormParam("id") int id, @FormParam("datum") String da){
         if(ur <= 0) {return Response.status(Response.Status.CONFLICT).entity(new AbstractMap.SimpleEntry<>("error", "Uren mag niet kleiner of gelijk aan 0 zijn!")).build();}
         if(om.trim().equals("")) {return Response.status(Response.Status.CONFLICT).entity(new AbstractMap.SimpleEntry<>("error", "Omschrijving mag niet leeg zijn!")).build();}
         while (Uren.getAlleUren().contains(id)){id = ++id;}
-        Uren nieuweUren = Uren.createUren(ur, om, Uren.getDatum());
+        da = Uren.getDatum();
+        Uren nieuweUren = Uren.createUren(ur, om, da);
 
         return Response.ok(nieuweUren).build();
     }

@@ -3,6 +3,7 @@ package nl.hu.IPASS.webservices;
 import com.azure.storage.blob.BlobClient;
 import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.BlobContainerClientBuilder;
+import nl.hu.IPASS.model.Bedrijf;
 import nl.hu.IPASS.model.Factuur;
 import nl.hu.IPASS.model.Klant;
 import nl.hu.IPASS.model.Uren;
@@ -30,7 +31,8 @@ public class PrintNaarTxt {
     @RolesAllowed("gebruiker")
     public Response printUren(){
         String uren = Uren.getAlleUren().toString();
-        String gegevens = Klant.getAlleGegevens().toString();
+        String gegevens = Klant.getAlleKlanten().toString();
+        String bedrijf = Bedrijf.getBedrijfs().toString();
 
         try {
             File myObj = new File("factuur.txt");
@@ -46,9 +48,9 @@ public class PrintNaarTxt {
 
         try {
             FileWriter myWriter = new FileWriter("factuur.txt");
-            myWriter.write("hoi");
             myWriter.write(uren);
             myWriter.write(gegevens);
+            myWriter.write(bedrijf);
             myWriter.close();
             System.out.println("Successfully wrote to the file.");
         } catch (IOException e) {

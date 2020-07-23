@@ -1,5 +1,6 @@
 package nl.hu.IPASS.setup;
 
+import nl.hu.IPASS.model.Bedrijf;
 import nl.hu.IPASS.model.Gebruiker;
 import nl.hu.IPASS.model.Klant;
 import nl.hu.IPASS.model.Uren;
@@ -19,7 +20,7 @@ public class MyContextListener implements ServletContextListener {
             PersistanceManager.LadenKlantVanAzure();
             System.out.println("beide loaded");
             System.out.println(Uren.getAlleUren());
-            System.out.println(Klant.getAlleGegevens());
+            System.out.println(Klant.getAlleKlanten());
         }catch (Exception e) {
             System.out.println("cannot load");
             e.printStackTrace();
@@ -27,6 +28,8 @@ public class MyContextListener implements ServletContextListener {
         System.out.println("Applicatie is aan het opstarten!");
         System.out.println("Initialiseer hiet objecten of laad alvast data");
         Gebruiker.addGebruiker("joost@hotmail.com", "hallo1234");
+        Bedrijf.createBedrijf("Buiting", "hoppp", "02983746546378", 9274354, "NL921734");
+//        Klant.createKlant("apple", "amerika", "ook in nl", "mister apple", 90);
     }
 
     @Override
@@ -35,7 +38,7 @@ public class MyContextListener implements ServletContextListener {
             PersistanceManager.OpslaanUrenNaarAzure();
             PersistanceManager.OpslaanKlantNaarAzure();
             System.out.println(Uren.getAlleUren());
-            System.out.println(Klant.getAlleGegevens());
+            System.out.println(Klant.getAlleKlanten());
             System.out.println("beide saved");
         }catch (IOException ioe) {
             System.out.println("failed to save");

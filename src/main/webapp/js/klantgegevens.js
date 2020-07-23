@@ -1,6 +1,7 @@
 //POST/toevoegen
 $(document).ready(function() {
     var postGegevens = document.getElementById('postGegevens');
+    // var postKlant = document.getElementById('postKlant');
 
     document.querySelector("#postklant").addEventListener("click", function () {
         var formData = new FormData(document.querySelector("#klantgegevensform"));
@@ -14,9 +15,12 @@ $(document).ready(function() {
         };
         fetch("rest/klant/toevoegklantgegevens", fetchoptions)
             .then(function (response) {
+                // var message = myJson["message"];
+
                 if (response.ok) {
                     postGegevens.style.color = "green";
                     postGegevens.innerText = "Toevoegen gelukt!";
+                    // postKlant.innerText = message;
                 }
                 if (response.status === 403) {
                     postGegevens.style.color = "red";
@@ -36,3 +40,4 @@ $(document).ready(function() {
             .catch(error => console.log(error));
     });
 });
+
